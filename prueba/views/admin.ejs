@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+</head>
+<body>
+    <h1>Admin Panel</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Role</th>
+                <th>Last Login</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% users.forEach(user => { %>
+                <tr>
+                    <td><%= user.username %></td>
+                    <td><%= user.role %></td>
+                    <td><%= user.last_login ? user.last_login : 'Never' %></td>
+                    <td>
+                        <% if (user.role !== 'admin') { %>
+                            <form action="/admin/deleteUser" method="POST">
+                                <input type="hidden" name="username" value="<%= user.username %>">
+                                <button type="submit">Eliminar</button>
+                            </form>
+                        <% } %>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+    <a href="/">Volver al Inicio</a>
+</body>
+</html>
