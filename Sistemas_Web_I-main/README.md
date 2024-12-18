@@ -9,10 +9,10 @@
 git config credential.helper "cache --timeout=7200"
 ```
 ```bash
-git config --global user.name "martacaninoromero"
+git config --global user.name "javier.martinezcristobal"
 ````
 ```bash
-git config --global user.email martacaninoromero@usp.ceu.es
+git config --global user.email javier.martinezcristobal@usp.ceu.es
 ```
 
 ## Para harcodear el título
