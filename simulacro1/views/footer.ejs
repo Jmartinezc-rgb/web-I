@@ -1,0 +1,64 @@
+</body>
+<style>
+    footer{
+        background-color: antiquewhite;
+        text-align: center;
+        padding: 1% 0%;
+        position:fixed;
+        width: 100%;
+        height: auto;
+        bottom:0;
+    }
+</style>
+<% if(cookie==true){ %>
+<% }else{ %>
+    <footer id="footer">
+        <h1> Uso de Cookies </h1>
+        <p> Nos vemos obligados a informarte del uso de cookies necesarias para que funcione la web</p>
+        <div id="botones">
+            <button id="botonaceptar" onclick="aceptarCookies()"> Aceptar </button>
+            <button onclick="location.href=`https://www.google.com`">Rechazar</button>
+        </div>
+    </footer>
+<% } %>
+<script>
+    const footer = document.getElementById('footer');
+
+    // Verifica si la preferencia ya se ha guardado en la sesión
+    fetch('/check-cookie')
+            .then(response => response.json())
+            .then(data => {
+                if (data.cookiesAccepted) {
+                    footer.style.display = 'none';
+                }
+            })
+            .catch(error => {
+                console.error('Error al verificar la aceptación de cookies:', error);
+            });
+    
+
+    // Verifica si la preferencia ya se ha guardado en la sesión
+    if (sessionStorage.getItem('cookiesAceptadas') === 'true') {
+            footer.style.display = 'none';
+        }
+
+        function aceptarCookies() {
+            // Guarda la preferencia en la sesión
+            sessionStorage.setItem('cookiesAceptadas', 'true');
+            footer.style.display = 'none';
+
+            fetch('/guardar-cookies', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({}),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.message);
+            })
+        }
+
+</script>
+</html>

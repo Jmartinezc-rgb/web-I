@@ -1,0 +1,35 @@
+<%- include("header", {}) %>
+<h1>¡Bienvenido!</h1>
+<p>Gracias por logearte <%= user %></p>
+<h2>High Scores</h2>
+<table border="1">
+    <tr>
+        <th>Usuario</th>
+        <th>Puntuación</th>
+    </tr>
+    <% scores.forEach(function(player) { %>
+        <tr>
+            <td>
+                <% if (player.username === user) { %>
+                    <strong><%= player.username %></strong>
+                <% } else { %>
+                    <%= player.username %>
+                <% } %>
+            </td>
+            <td>
+                <% if (player.username === user) { %>
+                    <strong><%= player.score %></strong>
+                <% } else { %>
+                    <%= player.score %>
+                <% } %>
+            </td>
+        </tr>
+    <% }); %>
+</table>
+<h3>Actualizar Puntuación</h3>
+<form action="/update-score" method="POST">
+    <input type="number" name="score" required>
+    <button type="submit">Actualizar</button>
+</form>
+
+<%- include("footer", { cookie: cookie}) %>
